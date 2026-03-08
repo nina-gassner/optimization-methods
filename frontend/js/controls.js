@@ -23,8 +23,9 @@ export function connectSlider() {
 
 export function getParameters() {
 
+
     return {
-        function_name: "himmelblau", 
+
         plot_scaling: "log",
         // THESE SHOULD ALSO BECOME CHOOSABLE !
 
@@ -40,6 +41,9 @@ export function getParameters() {
         max_iter: parseInt(document.getElementById("max_iter").value),
         delta: parseFloat(document.getElementById("delta").value),
 
-        
+        function_name: document.querySelector('input[name="function"]:checked').value,
+        custom_function: document.querySelector('input[name="custom-function"]').value,
+        // we do not need to parse as string -> string by default
+    
     };
 }

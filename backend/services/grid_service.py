@@ -9,9 +9,7 @@ def function_scaled(X, Y, function, plot_scaling):
         return np.log(Z - Z.min() + 1)
     return Z
 
-def compute_grid(req):
-
-    function = FUNCTIONS[req.function_name]
+def compute_grid(req, function):
 
     search_space = (
         (req.min_x, req.max_x),

@@ -37,7 +37,10 @@ body {
 
 .parameter-group {
 
+    display: flex;
+    flex-direction: column;
     margin-left: 10%;
+    gap: 10px;
 
 }
 
@@ -81,4 +84,12 @@ details[open] > summary {
 .plot-div{
     display:flex;
     flex-direction: row;
+}
+
+#function-input {
+    padding: 3px 8px 3px 8px;
+}
+
+.error-notice {
+    background-color: rgb(244, 199, 199);
 }

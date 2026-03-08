@@ -1,9 +1,35 @@
 from objective_functions import FUNCTIONS
 from optimizers.nelder_mead.simplexes_computation import get_nelder_mead_simplexes
 from services.grid_service import compute_grid
+from objective_functions.function_factory import create_function
+import sympy as sp
+    # this is for the custom function evaluation!
 
 def run_nelder_mead(req):
-    function = FUNCTIONS[req.function_name]
+
+    error_messages = []
+
+
+    # GETTING THE FUNCTION
+
+    if req.function_name != "custom":
+        function = FUNCTIONS[req.function_name]
+    else:
+        # getting the custom function ! :D
+        custom_tuple = create_function(req.custom_function)
+        function = custom_tuple[0]
+        error_messages = error_messages + ([] if (custom_tuple[1] == None) else [custom_tuple[1]])
+        
+    
+
+    # FINISHED GETTING THE FUNCTION - THERE MIGHT BE ERRORS
+
+
+    if error_messages:
+        return {
+            "error_messages": error_messages
+        }
+        
 
     search_space = (
         (req.min_x, req.max_x),
@@ -30,7 +56,8 @@ def run_nelder_mead(req):
 
     
     # compute visualization surface
-    grid = compute_grid(req)
+    grid = compute_grid(req, function)
+    # passing in function separetely, since we might have custom one
 
     search_rectangle = [
         (req.min_x, req.min_y),

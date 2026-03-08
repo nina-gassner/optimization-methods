@@ -1,10 +1,12 @@
 import { connectSlider, getParameters } from "./controls.js";
 import { sendOptimizerRequest } from "./api.js";
 import { initialPlot } from "./plot.js";
+import { handle_errors } from "./error_handler.js";
 
 let currentRun = 0;
 // variable to keep track of current run 
 // -> prevents multiple parallel runs
+
 
 
 document.getElementById("runButton").addEventListener("click", run);
@@ -17,6 +19,14 @@ async function run() {
 
     const params = getParameters();
     const data = await sendOptimizerRequest(params);
+
+    handle_errors(data);
+
+
+
+    if ("error_messages" in data) {
+        return;
+    }
 
     initialPlot(data);
 

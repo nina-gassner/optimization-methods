@@ -4,6 +4,7 @@ from typing import Literal
 
 class OptimizationRequest(BaseModel):
     function_name: str = "himmelblau"
+    custom_function: str = ""
 
     min_x: float = -5
     min_y: float = -5
