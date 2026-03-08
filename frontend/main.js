@@ -32,6 +32,7 @@ async function run() {
     const grid = data.grid;
     const frames = data.frames;
     const plotRange = data.plot_range;
+    const searchRectangle = data.search_rectangle;
 
     const contour = {
         type: "contour",
@@ -50,8 +51,18 @@ async function run() {
         line: {color: "red"}
     };
 
+    const searchRectanglePlot = {
+        type: "scatter",
+        mode: "lines+markers+text",
+        textposition: "top center",
+        x: searchRectangle.map(point => point[0]),
+        y: searchRectangle.map(point => point[1]),
+        text: ["", "", "Search space", "", ""],
+        line: {color: "black"}
+    }
+
     // "plot" is the id of where we want to put the plot!
-    Plotly.newPlot("plot", [contour, simplex], {
+    Plotly.newPlot("plot", [contour, simplex, searchRectanglePlot], {
         xaxis: {
             range: [plotRange["x"][0], plotRange["x"][1]],
             constrain: "domain"
