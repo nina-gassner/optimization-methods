@@ -1,0 +1,9 @@
+#plot {
+    width: 50vw;
+    height: 50vw;
+    /* vw = viewport width */
+    max-width: 800px;
+    max-height: 800px;
+
+    margin: 0 auto;
+}

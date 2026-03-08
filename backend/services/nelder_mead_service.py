@@ -31,12 +31,27 @@ def run_nelder_mead(req):
     
     # compute visualization surface
     grid = compute_grid(req)
+
+    search_rectangle = [
+        (req.min_x, req.min_y),
+        (req.max_x, req.min_y),
+        (req.max_x, req.max_y),
+        (req.min_x, req.max_y),
+        (req.min_x, req.min_y)
+    ]
+    
+    plot_range = {
+        "x": (min(grid["x"]), max(grid["x"])),
+        "y": (min(grid["y"]), max(grid["y"]))
+    }
     
 
     return {
         "optimizer": "nelder_mead",
         "frames": frames,
-        "grid": grid
+        "grid": grid,
+        "search_rectangle": search_rectangle,
+        "plot_range": plot_range
     }
     # frontend apparently can't read numpy arrays !
 

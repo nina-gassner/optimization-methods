@@ -31,6 +31,7 @@ async function run() {
 
     const grid = data.grid;
     const frames = data.frames;
+    const plotRange = data.plot_range;
 
     const contour = {
         type: "contour",
@@ -51,8 +52,24 @@ async function run() {
 
     // "plot" is the id of where we want to put the plot!
     Plotly.newPlot("plot", [contour, simplex], {
-        yaxis: {scaleanchor: "x"}
-    });
+        xaxis: {
+            range: [plotRange["x"][0], plotRange["x"][1]],
+            constrain: "domain"
+            // removes achsis outside plot
+        },
+        yaxis: {
+            range: [plotRange["y"][0], plotRange["y"][1]],
+            scaleanchor: "x",
+            constrain: "domain"
+        }
+    },
+    {
+        responsive: true
+        // adopting container size!
+        // now holding div can change plot size
+    }
+
+);
 
     for (let frame of frames) {
 
