@@ -1,9 +1,11 @@
 from objective_functions import FUNCTIONS
-from optimizers.nelder_mead.simplexes_computation import get_nelder_mead_simplexes
 from services.grid_service import compute_grid
 from objective_functions.function_factory import create_function
 
-def run_nelder_mead(req):
+from optimizers.pso.swarm_initialization import initialize_swarm
+from optimizers.pso.points_movements import get_points_and_movement
+
+def run_pso(req):
 
     error_messages = []
 
@@ -34,23 +36,37 @@ def run_nelder_mead(req):
         (req.min_y, req.max_y)
     )
 
-    simplexes = get_nelder_mead_simplexes(
-        function,
-        search_space,
-        alpha = req.alpha,
-        beta = req.beta,
-        gamma = req.gamma,
-        max_iter = req.max_iter,
-        delta = req.delta
+    # no special stopping conditions yet !
+
+    initial_points = initialize_swarm(
+        req.swarm_size, search_space, function, speed_range = [req.init_max_speed, req.init_max_speed]
     )
+
+    current_swarm = initial_points
+
+    all_swarms = []
+    all_swarms.append(initial_points)
+
+    for _ in range(req.max_iter):
+        current_swarm = get_points_and_movement(function, current_swarm, req.w, req.c_ind, req.c_grp, search_space = search_space, max_speed =req.max_speed)
+        all_swarms.append(current_swarm)
+
 
     frames = []
 
-    for simplex in simplexes:
-        frames.append({
-            "x": [p[0] for p in simplex] + [simplex[0][0]],
-            "y": [p[1] for p in simplex] + [simplex[0][1]]
-        })
+    for swarm in all_swarms:
+
+        points_list = []
+
+        for point in swarm["points"]:
+            points_list.append({
+                "x": point.location[0],
+                "y": point.location[1],
+                "speed_x": point.speed[0],
+                "speed_y": point.speed[1]
+            })
+        frames.append(points_list)
+
 
     
     # compute visualization surface
@@ -72,14 +88,11 @@ def run_nelder_mead(req):
     
 
     return {
-        "optimizer": "nelder_mead",
+        "optimizer": "pso",
         "frames": frames,
         "grid": grid,
         "search_rectangle": search_rectangle,
         "plot_range": plot_range
     }
-    # frontend apparently can't read numpy arrays !
-
-    # don't forget to add search rectangle !!!
 
     

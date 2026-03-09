@@ -35,7 +35,7 @@ def get_nelder_mead_simplexes(function, search_space, alpha=1, beta=2, gamma=0.5
 
     for i in range(max_iter):
 
-        current_simplex = simplex_computation(function, current_simplex, alpha, beta, gamma, penalty =  "squared distance", penalty_strength = 10, search_space = search_space)
+        current_simplex = simplex_computation(function, current_simplex, alpha, beta, gamma, search_space = search_space)
 
         simplexes.append(current_simplex)
 

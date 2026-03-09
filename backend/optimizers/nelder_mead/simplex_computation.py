@@ -1,6 +1,7 @@
 import numpy as np
+from optimizers.evaluation_with_penalty import evaluate_with_penalty
 
-def simplex_computation(function, current_simplex, alpha, beta, gamma, penalty =  None, penalty_strength = 0, search_space = []):
+def simplex_computation(function, current_simplex, alpha, beta, gamma, penalty =  "squared distance", penalty_strength = 10, search_space = []):
 
     # function_wp is function with penalty
 
@@ -62,18 +63,5 @@ def shrinkage(point_value):
         point_value[i][0] = 0.5 * (point_value[i][0] + best_point)
         # no need to update value: won't be needing that anymore
 
-def evaluate_with_penalty(point, function, penalty, penalty_strength, search_space):
-    if (not penalty):
-        return function(point)
-    
-    if (penalty == "squared distance"):
-        squared_distances = 0
-        dimension = len(point)
-        for i in range(dimension):
-            squared_distances += max(search_space[i][0] - point[i], 0, point[i] - search_space[i][1])**2
-        return function(point) + squared_distances * penalty_strength
-    
-    print("unknown penalty type")
-    return function(point)
 
 

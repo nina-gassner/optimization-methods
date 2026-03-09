@@ -1,7 +1,8 @@
-import { connectSlider, getParameters } from "./controls.js";
-import { sendOptimizerRequest } from "./api.js";
+import { connectSlider} from "../controls.js";
+import { getParameters } from "./controls.js"
+import { sendOptimizerRequest } from "../api.js";
 import { initialPlot } from "./plot.js";
-import { handle_errors } from "./error_handler.js";
+import { handle_errors } from "../error_handler.js";
 
 let currentRun = 0;
 // variable to keep track of current run 
