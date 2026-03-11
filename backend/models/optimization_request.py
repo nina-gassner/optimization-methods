@@ -36,3 +36,10 @@ class PSORequest(BaseOptimizationRequest):
     swarm_size: int = 30
     init_max_speed: float = 1
     max_speed: float = 2
+
+class SARequest(BaseOptimizationRequest):
+
+    init_temperature: float = 10
+    p_function: str = "Boltzmann"
+    speed_range: float = 1
+    temperature_decrease: float = 0.05

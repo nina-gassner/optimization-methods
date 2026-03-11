@@ -36,33 +36,26 @@ async function run() {
     const frames_per_second = parseFloat(document.querySelector('input[name="speed"]').value);
     const ms_between_frames = 1 / frames_per_second * 1000;
 
-    for (let frame of Object.values(frames)) {
+    for (let frame of frames) {
 
 
         if (runId !== currentRun) {
             return;
         }
 
-        const x = frame.map(p => p.x)
-        const y = frame.map(p => p.y)
-
-        const vx = [];
-        const vy = [];
-    
-        frame.forEach(p => {
-            vx.push(p.x, p.x + p.speed_x, null); // add null such that each line individual
-            vy.push(p.y, p.y + p.speed_y, null);
-        });
+        const x = [frame["x"]]
+        const y = [frame["y"]]
 
         await Plotly.restyle("plot", {
             x: [x],
             y: [y]
         }, [1]);
 
-        await Plotly.restyle("plot", {
-            x: [vx],
-            y: [vy]
-        }, [2]);
+
+        await Plotly.relayout("plot", {
+            "annotations[0].text": "T = " + frame.tmp.toFixed(3)
+        });
+
 
         // frame.x is the list of (4) x-values for simplex vertices by definition
 

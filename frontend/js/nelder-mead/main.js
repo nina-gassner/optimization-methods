@@ -1,6 +1,6 @@
 import { connectSlider} from "../controls.js";
 import { getParameters } from "./controls.js"
-import { sendOptimizerRequest } from "../api.js";
+import { sendOptimizerRequest } from "./api.js";
 import { initialPlot } from "./plot.js";
 import { handle_errors } from "../error_handler.js";
 

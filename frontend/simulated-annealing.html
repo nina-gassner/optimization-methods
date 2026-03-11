@@ -10,7 +10,7 @@
     <!-- tells the brwoser: “load plotly library before running ”-->
 
 
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/sa/main.js"></script>
 
 
     <link rel="stylesheet" href="css/simple-css.css">
@@ -24,15 +24,15 @@
     <header>
         <nav>
             <a href="/nelder-mead.html">Nelder-Mead</a>
-            <a href="/simulated-annealing.html">Simmulated Annealing</a>
             <a href="/particle-swarm-optimization.html">PSO</a>
+            <a href="/simulated-annealing.html">Simmulated Annealing</a>
             <a href="/">link 4</a>
         </nav>
         <h1>
             Simulated Annealing
         </h1>
         <p>
-            WORK IN PROGRESS
+            DOESN'T WORK YET - WORK IN PROGRESS
         </p>
     </header>
 
@@ -115,67 +115,63 @@
                 
                     <div class = "parameter-adjustment">
                         <div class = "parameter-label">
-                            <div>alpha</div>
+                            <div>initial tmp</div>
                             <div class="val-display">value</div>
                         </div>
-                        <input type="range" id="alpha" min="0" max="3" step="0.1" value="1">
+                        <input type="range" id="init_temperature" min="0" max="10" step="0.1" value="5">
                     </div>
 
                     <div class = "parameter-adjustment">
                         <div class = "parameter-label">
-                            <div>beta</div>
+                            <div>max speed / axis</div>
                             <div class="val-display">value</div>
                         </div>
-                        <input type="range" id="beta" min="0" max="3" step="0.1" value="2">
+                        <input type="range" id="speed_range" min="0" max="10" step="0.1" value="1">
                     </div>
 
                     <div class = "parameter-adjustment">
                         <div class = "parameter-label">
-                            <div>gamma</div>
+                            <div>tmp decrease</div>
                             <div class="val-display">value</div>
                         </div>
-                        <input type="range" id="gamma" min="0" max="1" step="0.05" value="0.5">
+                        <input type="range" id="temperature_decrease" min="0" max="0.2" step="0.005" value="0.01">
                     </div>
 
                 </div>
 
-            </div>
-
-
-        </details>
-
-
-        <details id = "stopping-criteria" >
-
-            <summary class = "parameter-group-title">
-                Stopping Criteria
-            </summary>
-
-            <div class = "parameter-group">
+                <i style = "margin-top: 15px">
+                    probability function:
+                </i>
 
                 <div class = "parameter-row">
-
-                    <div class = "parameter-adjustment">
-                        <div class = "parameter-label">
-                            <div>max iterations</div>
-                            <div class="val-display">value</div>
-                        </div>
-                        <input type="range" id="max_iter" min="1" max="100" step="1" value="10">
+                    <div class = "function-selection">
+                        <label>
+                            <input type="radio" name="p_function" value="Boltzmann" checked>
+                            Boltzmann
+                        </label>
                     </div>
 
-                    <div class = "parameter-adjustment">
-                        <div class = "parameter-label">
-                            <div>delta</div>
-                            <div class="val-display">value</div>
-                        </div>
-                        <input type="range" id="delta" min="0.000001" max="0.01" step="0.000001" value="0.000001">
+                    <div class = "function-selection">
+                        <label>
+                            <input type="radio" name="p_function" value="Logistic">
+                            Logistic
+                        </label>
                     </div>
 
+                    <div class = "function-selection">
+                        <label>
+                            <input type="radio" name="p_function" value="Linear">
+                            Linear
+                        </label>
+                    </div>
                 </div>
 
             </div>
 
+
         </details>
+
+
 
 
         <details id = "choosing-function" >
@@ -255,7 +251,7 @@
                             <div>frames/second</div>
                             <div class="val-display">value</div>
                         </div>
-                        <input type="range" name="speed" min="0.2" max="20" step="0.2" value="2">
+                        <input type="range" name="speed" min="0.2" max="1000" step="0.2" value="100">
                         
                     </div>
 
